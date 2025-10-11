@@ -38,20 +38,20 @@
     }
 
     .card {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  
-  /* --- แก้ไขตรงนี้ --- */
-  max-width: 900px; /* 1. เปลี่ยนจาก fit-content เป็นค่าที่ชัดเจน (สำหรับจอคอม) */
-  width: 90%;       /* 2. ทำให้มันยืดหยุ่นได้ตั้งแต่แรก */
-  margin: 40px auto;/* 3. ปรับ margin ใหม่ ให้อยู่กลางจอตั้งแต่แรก และเว้นระยะบน-ล่าง */
-  
-  padding: 30px;
-  display: block;
-  color: inherit;
-  text-decoration: none;
-}
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      max-width: fit-content ;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      margin-left: 20px;
+
+      padding: 30px;
+      
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
     
     .popup{
       cursor: pointer;
@@ -170,52 +170,4 @@
 
 
 
-
-
-
-
-    /* ========================================= */
-/* === Responsive Styles for Mobile Phones === */
-/* ========================================= */
-
-@media (max-width: 768px) { /* <--- เวทมนตร์เริ่มตรงนี้! สำหรับจอที่กว้างไม่เกิน 768px (แท็บเล็ตและมือถือ) */
-
-  /* 1. ทำให้กลุ่มการ์ดเรียงจากบนลงล่าง */
-  .group-card {
-    flex-direction: column; /* เปลี่ยนทิศทาง flex จากแนวนอนเป็น 'แนวตั้ง' */
-    align-items: center; /* จัดให้การ์ดที่เรียงแนวตั้งอยู่กลางจอ */
-  }
-  
-  /* 2. ปรับขนาดฟอนต์และระยะห่างหลักๆ */
-  h1 {
-    font-size: 2rem; /* ลดขนาดหัวข้อหลักลง */
-  }
-
-  .card {
-    margin-left: auto;  /* ยกเลิก margin-left เดิม */
-    margin-right: auto; /* ทำให้การ์ดอยู่กลางเสมอ */
-    width: 90%; /* ทำให้การ์ดกว้าง 90% ของจอ ไม่ล้น */
-    max-width: 400px; /* แต่ก็ไม่กว้างเกินไป */
-  }
-
-  /* 3. ปรับ Layout ของ Navbar */
-  .navbar-container {
-    flex-direction: column; /* ทำให้โลโก้กับเมนูเรียงบน-ล่าง */
-    gap: 15px; /* เพิ่มระยะห่างระหว่างโลโก้กับเมนู */
-  }
-
-  .navbar-link ul {
-    gap: 15px; /* ลดระยะห่างระหว่างเมนูลง */
-  }
-
-  .navbar-link a {
-    font-size: 16px; /* ลดขนาดฟอนต์เมนู */
-  }
-
-  /* 4. ปรับขนาดรูปภาพในการ์ด */
-  .images {
-    width: 100%; /* ทำให้รูปกว้างเต็มการ์ด */
-    height: auto; /* ให้ความสูงปรับตามอัตโนมัติ */
-  }
-
-}
+    
