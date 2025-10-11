@@ -1,40 +1,163 @@
-```html
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เว็บของฉันบน GitHub Pages</title>
-  <style>
-    body {
-      font-family: "Prompt", sans-serif;
-      background: linear-gradient(135deg, #89f7fe, #66a6ff);
-      color: #333;
-      text-align: center;
-      padding: 80px;
-    }
-    h1 {
-      font-size: 3rem;
-    }
-    p {
-      font-size: 1.2rem;
-    }
-    .card {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      max-width: 400px;
-      margin: 40px auto;
-      padding: 30px;
-    }
-  </style>
+  <title>Temperature-Measurement-and-Display</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="card">
-    <h1>สวัสดี 👋</h1>
-    <p>ยินดีต้อนรับสู่เว็บไซต์ของฉัน</p>
-    <p>สร้างด้วย ❤️ ผ่าน GitHub Pages</p>
+
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="#main-menu" class="navbar-icon">Temperature Measurement and Display</a>
+      <nav class="navbar-link">
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#video-menu">Video</a></li>
+          <li><a href="#code-menu">Source Code</a></li>
+          <li><a href="#">Member</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <h1 id="main-menu">Temperature Measurement and Display</h1>
+  <div class="group-card">
+    <div class="card">
+      <h2>
+        Abstract (บทคัดย่อ)
+      </h2>
+      <p>
+        โปรเจ็กนี้เป็นการสร้างเว็บไซต์สำหรับ Microcontroller เพื่ออ่านค่าอุณหภูมิและนำมาใช้อำนวยความสะดวก เช่น คำนวณค่าไฟ โดยใช้เซนเซอร์วัดอุณหภูมิ DHT22 AM2302
+      </p>
+    </div>
   </div>
+
+  <h3>
+    Hardware used
+  </h3>
+
+    <div class="group-card">
+      <div class="card">
+        <h2>Sensor : DHT22 AM2032</h2>
+      <img src="images/sensor-dht22.jpg" class="images">
+    </div>
+    
+    <div class="card">
+      <h2>Board : Arduino UNO R4 WiFi</h2>
+        <img src="images/arduino.jpg" class="images">
+    </div>
+  </div>
+
+    <!-- /* source code jaa
+     <div class="group-card">
+      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" class="card popup">
+    <h2>
+      Source Code 
+    </h2>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" class="card popup">
+      <h2>
+        Poster
+      </h2>
+    </a>
+    </div>
+    */ -->
+    
+    <h3>
+      More info about our project.
+    </h3>
+
+    <div class="video-container" id="video-menu">
+      <iframe src="https://www.youtube.com/embed/XAPgUWGyntI?si=tVTihF31sm6V_klq" title="YouTube video player" frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+      allowfullscreen>
+      </iframe>
+    </div>
+
+    
+    <h3 id="code-menu">
+      Source Code
+    </h3>
+
+    <div class="code-container">
+    <pre class="source-code"><code>
+      //
+//  Arduino Sketch for reading Temperature and Humidity from a DHT22 Sensor
+//  This code is designed for microcontrollers like Arduino Uno, ESP32, etc.
+//  It reads the data and prints it to the Serial Monitor.
+//
+
+// 1. Include necessary libraries
+// You need to install the "DHT sensor library" by Adafruit from the Library Manager.
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <DHT_U.h>
+
+// 2. Define constants for the sensor pin and type
+#define DHTPIN 2         // The digital pin connected to the DHT sensor
+#define DHTTYPE DHT22    // Define the type of sensor we are using (DHT22 or AM2302)
+
+// 3. Initialize the DHT sensor object
+DHT dht(DHTPIN, DHTTYPE);
+
+// =========================================================================
+// SETUP FUNCTION - Runs only once when the board starts up
+// =========================================================================
+void setup() {
+  // Start serial communication at 9600 bits per second for debugging
+  Serial.begin(9600);
+  Serial.println(F("DHT22 Sensor Test - Initializing..."));
+
+  // Initialize the sensor
+  dht.begin();
+}
+
+// =========================================================================
+// LOOP FUNCTION - Runs over and over again forever
+// =========================================================================
+void loop() {
+  // Wait a few seconds between measurements.
+  // The DHT22 sensor should not be read more than once every 2 seconds.
+  delay(2000);
+
+  // Read Humidity from the sensor
+  float humidity = dht.readHumidity();
+  // Read Temperature in Celsius (the default)
+  float temp_c = dht.readTemperature();
+  // Read Temperature in Fahrenheit
+  float temp_f = dht.readTemperature(true);
+
+  // Check if any reads failed and exit early to try again.
+  if (isnan(humidity) || isnan(temp_c) || isnan(temp_f)) {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return; // Exit the function and try again in the next loop
+  }
+
+  // If readings were successful, print them to the Serial Monitor
+  Serial.print(F("Humidity: "));
+  Serial.print(humidity);
+  Serial.print(F("%  |  "));
+  Serial.print(F("Temperature: "));
+  Serial.print(temp_c);
+  Serial.print(F(" °C  ~  "));
+  Serial.print(temp_f);
+  Serial.println(F(" °F"));
+}
+    </code>
+    </pre>
+  </div>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <p class="footer-text">&copy; 2025 Temperature Measurement and Display. All Rights Reserved.</p>
+      </div>
+    </footer>
+
 </body>
 </html>
-```
